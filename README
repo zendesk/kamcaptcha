@@ -29,6 +29,18 @@ http://rmagick.rubyforge.org/install-faq.html
 Installing the plugin is as simple as issuing this command from the
 root of your rails application directory:
 
+  To add as a submodule
+  
+  git submodule add git://github.com/zendesk/captcha.git
+  git submodule init
+  git submodule update
+
+  To update the submodule
+
+  git pull git://github.com/zendesk/captcha.git master
+  
+  Or clone and make your own changes
+
   git clone git@github.com:zendesk/captcha.git
 
 
