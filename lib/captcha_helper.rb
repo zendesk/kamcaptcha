@@ -19,7 +19,5 @@ module CaptchaHelper
       content_tag('div', captcha_hidden_text + captcha_input_text(label) + captcha_image, { :class => 'captcha' })
    end
    
-   def captcha_validated?
-      CaptchaUtil::encrypt_string(params[:captcha].to_s.gsub(' ', '').downcase) == params[:captcha_validation]
-   end
 end
+
