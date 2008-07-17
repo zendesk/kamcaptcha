@@ -29,14 +29,17 @@ http://rmagick.rubyforge.org/install-faq.html
 Installing the plugin as a submodule is as simple as issuing these commands from the
 root of your rails application directory:
 
-  git submodule add git://github.com/zendesk/captcha.git vendor/plugins/captcha
+  To add as a submodule
+  
+  git submodule add git://github.com/zendesk/captcha.git
   git submodule init
   git submodule update
 
+  To update the submodule
 
-== Cloning the plugin
-
-Want to clone and do your own work? Here goes:
+  git pull git://github.com/zendesk/captcha.git master
+  
+  Or clone and make your own changes
 
   git clone git@github.com:zendesk/captcha.git
 
