@@ -87,7 +87,7 @@ In your controller, you will need to do the following:
 
 PostController < ApplicationController
 
-   helper CaptchaHelper
+   validates_captcha
 
    def create
       ...
