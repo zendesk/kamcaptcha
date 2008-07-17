@@ -18,16 +18,25 @@ The plugin has been tested on OS X 10.5 using ImageMagick @6.4.1-8_0+q16 (via Ma
 the rmagick 2.5.2 gem.
 
 
-== Install the RMagic
+== Install RMagic
 
 Follow the instructions on their site: 
 http://rmagick.rubyforge.org/install-faq.html
 
 
-== Install the Plugin
+== Install the plugin
 
-Installing the plugin is as simple as issuing this command from the
+Installing the plugin as a submodule is as simple as issuing these commands from the
 root of your rails application directory:
+
+  git submodule add git://github.com/zendesk/captcha.git vendor/plugins/captcha
+  git submodule init
+  git submodule update
+
+
+== Cloning the plugin
+
+Want to clone and do your own work? Here goes:
 
   git clone git@github.com:zendesk/captcha.git
 
