@@ -3,7 +3,7 @@ require 'digest/sha1'
 module CaptchaUtil
 
   def self.random_image
-    @@captcha_files ||= Dir.entries("#{Rails.root}/public/images/captcha")[2..-1].freeze
+    @@captcha_files ||= Dir.glob("#{Rails.root}/public/images/captcha/*.png").map {|f| File.basename(f)}
     @@captcha_files[rand(@@captcha_files.size)]
   end
 
