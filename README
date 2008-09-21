@@ -43,6 +43,8 @@ root of your rails application directory:
 
   git clone git@github.com:zendesk/captcha.git
 
+Update: Using submodules is a headache to the extent where they're not really worth while.
+Go for script/plugin install instead for increased happiness.
 
 == Generate a bunch of images off-line
 
