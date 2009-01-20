@@ -32,7 +32,7 @@ module CaptchaImageGenerator
 
     # Render the text in the image
     text_img.annotate(Magick::Draw.new, 0,0,0,0, random_string) {
-      self.gravity = Magick::CenterGravity
+      self.gravity = Magick::WestGravity
       self.font_family = 'times'
       self.font_weight = Magick::BoldWeight
       self.fill = '#666666'
