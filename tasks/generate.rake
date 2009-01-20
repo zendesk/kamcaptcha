@@ -6,8 +6,8 @@ namespace :captcha do
 
    desc 'Generate a set of captcha images off-line'
    task :generate => :environment do 
-      FileUtils.mkdir_p('public/images/captcha')
-      Dir.chdir('public/images/captcha') do
+      FileUtils.mkdir_p('public/system/captcha')
+      Dir.chdir('public/system/captcha') do
          image_count  = (ENV['COUNT'] || 3).to_i
          image_params = resolve_params
          puts "Generating #{image_count} captcha images off-line #{'with params '+image_params.inspect unless image_params.empty?}"

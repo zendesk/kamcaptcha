@@ -2,7 +2,7 @@ module CaptchaHelper
     
    def captcha_image(options = {})
       @captcha_image ||= CaptchaUtil::random_image
-      image_tag('captcha/' + @captcha_image, options)
+      image_tag('/system/captcha/' + @captcha_image, options)
    end
    
    def captcha_input_text(label, options = {})

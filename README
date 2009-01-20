@@ -61,7 +61,7 @@ Next, generate the images by running the following rake task, this takes a while
 
    rake captcha:generate COUNT=250
 
-This will create the '/public/images/captcha' directory if it doesn't
+This will create the '/public/system/captcha' directory if it doesn't
 already exist and put 250 randomly generated captcha gifs. 
 
 You can specify the following parameters when running the rake task:
