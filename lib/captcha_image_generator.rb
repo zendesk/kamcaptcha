@@ -8,7 +8,7 @@ require 'captcha_util'
 
 module CaptchaImageGenerator
 
-  @@eligible_chars     = (0..9).to_a + ('a'..'z').to_a + ('A'..'Z').to_a
+  @@eligible_chars     = (2..9).to_a + %w(A B C D E F G H J K L M N P Q R S T U V X Y Z)
   @@default_parameters = {
     :image_width    => 240,
     :image_height   => 50,
