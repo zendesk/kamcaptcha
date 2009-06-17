@@ -3,8 +3,7 @@
 This captcha generator is based on the very fine work of Eric Methot 
 (http://blogs.ericmethot.com/) all credit and thanks should go to him.
 
-This fork fixes an issue that prevents the captcha validation from working
-when you generate images in a file format other than PNG.
+This fork allows you to specify a file type for captcha image generation (png or gif).
 
 Using Captcha is a five step process
 
@@ -62,7 +61,7 @@ Next, generate the images by running the following rake task, this takes a while
    rake captcha:generate COUNT=250
 
 This will create the '/public/system/captcha' directory if it doesn't
-already exist and put 250 randomly generated captcha gifs. 
+already exist and put 250 randomly generated captcha images. 
 
 You can specify the following parameters when running the rake task:
 
@@ -70,7 +69,7 @@ COUNT          - the number of images to generate, default 3
 IMAGE_HEIGHT   - the height of the captcha image in pixels, default 50
 IMAGE_WIDTH    - the width of the captcha image in pixels, default 260
 CAPTCHA_LENGTH - the number of characters in the captcha, default 5
-
+FILE_FORMAT    - the file type of the captcha image (png or gif)
 
 == Use the helper methods
 

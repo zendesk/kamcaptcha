@@ -19,8 +19,8 @@ namespace :captcha do
    
    def resolve_params
      params = {}
-     ['IMAGE_WIDTH', 'IMAGE_HEIGHT', 'CAPTCHA_LENGTH'].each do |param|
-       params[param.downcase.to_sym] = ENV[param].to_i if ENV[param]
+     ['IMAGE_WIDTH', 'IMAGE_HEIGHT', 'CAPTCHA_LENGTH', 'FILE_FORMAT'].each do |param|
+       params[param.downcase.to_sym] = ENV[param] if ENV[param]
      end
      params 
    end 

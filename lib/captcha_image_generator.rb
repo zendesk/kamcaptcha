@@ -12,28 +12,31 @@ module CaptchaImageGenerator
   @@default_parameters = {
     :image_width    => 240,
     :image_height   => 50,
-    :captcha_length => 5
+    :captcha_length => 5,
+    :file_format => 'png'
   }
 
   def self.generate_captcha_image(params = {})
 
     params.reverse_merge!(@@default_parameters)
 
-    text_img  = Magick::Image.new(params[:image_width], params[:image_height])
-    black_img = Magick::Image.new(params[:image_width], params[:image_height]) do
+    file_format = ['png', 'gif'].include?(params[:file_format]) ? ".#{params[:file_format]}" : '.png'
+    
+    text_img  = Magick::Image.new(params[:image_width].to_i, params[:image_height].to_i)
+    black_img = Magick::Image.new(params[:image_width].to_i, params[:image_height].to_i) do
       self.background_color = 'black'
     end
 
     # Generate a 5 character random string
-    random_string = (1..params[:captcha_length]).collect { @@eligible_chars[rand(@@eligible_chars.size)] }.join(' ')
+    random_string = (1..params[:captcha_length].to_i).collect { @@eligible_chars[rand(@@eligible_chars.size)] }.join(' ')
 
     # Gerenate the filename based on the string where we have removed the spaces
-    filename = CaptchaUtil::encrypt_string(random_string.gsub(' ', '').downcase) + '.png'
+    filename = CaptchaUtil::encrypt_string(random_string.gsub(' ', '').downcase) + file_format
 
     # Render the text in the image
     text_img.annotate(Magick::Draw.new, 0,0,0,0, random_string) {
       self.gravity = Magick::WestGravity
-      self.font_family = 'times'
+      self.font_family = 'Thonburi'
       self.font_weight = Magick::BoldWeight
       self.fill = '#666666'
       self.stroke = 'black'
@@ -44,7 +47,7 @@ module CaptchaImageGenerator
     # Apply a little blur and fuzzing
     text_img = text_img.gaussian_blur(1.2, 1.2)
     text_img = text_img.sketch(20, 30.0, 30.0)
-    text_img = text_img.wave(7, 90)
+    text_img = text_img.wave(3, 90)
 
     # Now we need to get the white out
     text_mask = text_img.negate
