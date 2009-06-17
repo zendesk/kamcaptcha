@@ -3,8 +3,8 @@
 This captcha generator is based on the very fine work of Eric Methot 
 (http://blogs.ericmethot.com/) all credit and thanks should go to him.
 
-This fork contains some cleanup of the code, and provides a better decoupling
-from RMagick
+This fork fixes an issue that prevents the captcha validation from working
+when you generate images in a file format other than PNG.
 
 Using Captcha is a five step process
 

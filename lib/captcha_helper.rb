@@ -12,7 +12,7 @@ module CaptchaHelper
    
    def captcha_hidden_text
       @captcha_image ||= CaptchaUtil::random_image
-      hidden_field_tag(:captcha_validation, @captcha_image.gsub(/.png$/, ''))
+      hidden_field_tag(:captcha_validation, @captcha_image.gsub(/\..+$/,''))
    end
    
    def captcha_block(label = 'Please type the characters in the image below')
