@@ -13,7 +13,8 @@ module CaptchaImageGenerator
     :image_width    => 240,
     :image_height   => 50,
     :captcha_length => 5,
-    :file_format => 'png'
+    :file_format => 'png',
+    :font_size => 44    
   }
 
   def self.generate_captcha_image(params = {})
@@ -41,7 +42,7 @@ module CaptchaImageGenerator
       self.fill = '#666666'
       self.stroke = 'black'
       self.stroke_width = 2
-      self.pointsize = 44
+      self.pointsize = params[:font_size].to_f
     }
 
     # Apply a little blur and fuzzing
