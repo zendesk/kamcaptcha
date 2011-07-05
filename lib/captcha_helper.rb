@@ -21,3 +21,4 @@ module CaptchaHelper
    
 end
 
+ActionView::Base.send(:include, CaptchaHelper)
