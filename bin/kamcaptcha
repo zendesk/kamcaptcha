@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "bundler"
+
+require "kamcaptcha"
+require "kamcaptcha/generator"
+
+require "trollop"
+require "digest"
+
+ARGV << "--help" if ARGV.empty?
+
+opts = Trollop.options do
+  banner <<-EOS
+Captcha word library generator. Builds images of words to present to users.
+
+  kamcaptcha [options] <output directory>
+
+Usage examples:
+  kamcaptcha tmp/
+  kamcaptcha --count 100 tmp/
+  kamcaptcha --height 100 --width 300 tmp/
+  kamcaptcha --length 8 --format gif tmp/
+
+A default run creates a "./tmp" directory and generates 10 random five character word PNG images, each 240x50 pixels in size.
+
+Full list of options:
+EOS
+
+  opt :salt, "Salt to use, if not specified one will be generated"
+  opt :count, "How many words to generate", :default => 10
+  opt :height, "Height of the word image in pixels", :default => 50
+  opt :width, "Width of the word image in pixesks", :default => 240
+  opt :length, "Length of the word in number of characters", :default => 5
+  opt :format, "Image file format", :default => "png"
+end
+
+if ARGV.empty? || !File.exist?(ARGV[0])
+  puts "Output directory does not exist"
+  exit 1
+end
+
+Kamcaptcha.salt = opts[:salt] || Digest::SHA2.hexdigest((0...64).map { rand(150).chr }.join)
+
+puts "Generating #{opts[:count]} words into #{ARGV[0]}\n\n"
+
+opts[:count].times do |i|
+  puts "\t#{i+1}\t"+Kamcaptcha::Generator.generate(ARGV[0], opts)
+end
+
+puts "\nRemember to set Kamcaptcha.salt = '#{Kamcaptcha.salt}' in your application\n"
+
