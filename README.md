@@ -1,4 +1,4 @@
-# Kamcaptcha
+# Kamcaptcha [![Build Status](https://secure.travis-ci.org/morten/kamcaptcha.png)](http://travis-ci.org/morten/kamcaptcha)
 
 A captcha system that uses less ridiculous images than ReCAPTCHA. Kamcaptcha has two somewhat independent parts to it, a generator for building the word images to present, and then a runtime configuration for checking validity of what gets submitted.
 
