@@ -1,5 +1,5 @@
 begin
-  require "rmagick"
+  require "RMagick"
 rescue LoadError => e
   puts "RMagick required to run the generator, gem install rmagick"
   exit
