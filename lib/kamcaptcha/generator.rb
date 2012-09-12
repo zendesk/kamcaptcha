@@ -54,9 +54,8 @@ module Kamcaptcha
             w = default_dict
           end
 
-          w.map!    { |w| w.upcase }
-          w.select! { |w| w.size >= min && w.size <= max && w !~ /O/ }
-          w
+          w.each_with_index { |word, i| w[i] = word.upcase }
+          w.select { |w| w.size >= min && w.size <= max && w !~ /O/ }
         end
       end
 
