@@ -6,6 +6,7 @@ require "minitest/autorun"
 
 Bundler.require
 
+require "rmagick"
 require "debugger" unless ENV["TRAVIS"]
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))

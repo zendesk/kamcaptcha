@@ -1,10 +1,8 @@
-require "rubygems"
-
 begin
   require "rmagick"
 rescue LoadError => e
   puts "RMagick required to run the generator, gem install rmagick"
-  return
+  exit
 end
 
 module Kamcaptcha
