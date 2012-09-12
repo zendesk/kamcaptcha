@@ -9,31 +9,99 @@ end
 
 module Kamcaptcha
   class Generator
+    class WordGenerator
+      attr_reader :min, :max
+
+      def initialize(length)
+        if length.to_s =~ /^(\d+)$/
+          @min = @max = $1.to_i
+        elsif length =~ /^(\d+)-(\d+)$/
+          @min = [$1.to_i, $2.to_i].min
+          @max = [$1.to_i, $2.to_i].max
+        else
+          raise ArgumentError.new("Invalid word length specified: #{length}")
+        end
+      end
+    end
+
+    class RandomWordGenerator < WordGenerator
+      CHARS = "23456789ABCDEFGHJKLMNPQRSTUVXYZ".split("")
+
+      def generate
+        length  = min
+        length += Kernel.rand(max - min) unless max == min
+
+        (1..length).map { CHARS[rand(CHARS.size)] }.join(" ")
+      end
+    end
+
+    class DictionaryWordGenerator < WordGenerator
+      class << self
+        attr_accessor :dict # Use this to set a custom dictionary or dictionary generating function
+      end
+
+      def generate
+        words[rand(words.size)].split("").join(" ")
+      end
+
+      def words
+        @words ||= begin
+          if self.class.dict
+            if self.class.dict.respond_to?(:call)
+              w = self.class.dict.call
+            else
+              w = self.class.dict
+            end
+          else
+            w = default_dict
+          end
+
+          w.map!    { |w| w.upcase }
+          w.select! { |w| w.size >= min && w.size <= max && w !~ /O/ }
+          w
+        end
+      end
+
+      def default_dict
+        return File.read("/usr/share/dict/words").split("\n") if File.exists?("/usr/share/dict/words")
+        return File.read("/usr/dict/words").split("\n") if File.exists?("/usr/dict/words")
+
+        raise ArgumentError.new("Sorry, need a dictionary file")
+      end
+    end
+
     DEFAULTS = {
-      :chars  => "23456789ABCDEFGHJKLMNPQRSTUVXYZ".split(""),
       :width  => 240,
       :height => 50,
       :length => 5,
-      :format => "png"
+      :format => "png",
+      :count  => 1
     }
 
     def self.generate(path, options = {})
       options = DEFAULTS.merge(options)
 
-      word  = generate_word(options[:chars], options[:length])
-      image = build_image(word, options[:width], options[:height])
+      if options[:source] != "random"
+        source = DictionaryWordGenerator.new(options[:length])
+      else
+        source = RandomWordGenerator.new(options[:length])
+      end
 
-      name  = word.delete(" ").downcase
-      file  = File.join(path, Kamcaptcha.encrypt(name) + ".#{options[:format]}")
+      files = []
 
-      image.write(file)
-      image.destroy!
+      options[:count].times do
+        word  = source.generate
+        image = build_image(word, options[:width], options[:height])
+        name  = word.delete(" ").downcase
+        file  = File.join(path, Kamcaptcha.encrypt(name) + ".#{options[:format]}")
 
-      file
-    end
+        image.write(file)
+        image.destroy!
 
-    def self.generate_word(chars, size)
-      (1..size).map { chars[rand(chars.size)] }.join(" ")
+        files << file
+      end
+
+      files
     end
 
     def self.build_image(word, width, height)

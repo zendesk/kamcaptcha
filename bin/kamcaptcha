@@ -21,7 +21,7 @@ Usage examples:
   kamcaptcha tmp/
   kamcaptcha --count 100 tmp/
   kamcaptcha --height 100 --width 300 tmp/
-  kamcaptcha --length 8 --format gif tmp/
+  kamcaptcha --length 8-10 --source random --format gif tmp/
 
 A default run creates a "./tmp" directory and generates 10 random five character word PNG images, each 240x50 pixels in size.
 
@@ -32,7 +32,8 @@ EOS
   opt :count, "How many words to generate", :default => 10
   opt :height, "Height of the word image in pixels", :default => 50
   opt :width, "Width of the word image in pixesks", :default => 240
-  opt :length, "Length of the word in number of characters", :default => 5
+  opt :source, "How to generate words, [dictionary|random]", :default => "dictionary"
+  opt :length, "Length of the word in number of characters, or as a range e.g. 7-9", :default => "5"
   opt :format, "Image file format", :default => "png"
 end
 
@@ -43,10 +44,11 @@ end
 
 Kamcaptcha.salt = opts[:salt] || Digest::SHA2.hexdigest((0...64).map { rand(150).chr }.join)
 
-puts "Generating #{opts[:count]} words into #{ARGV[0]}\n\n"
+puts "Generating #{opts[:count]} words into #{ARGV[0]} - hang tight...\n\n"
 
-opts[:count].times do |i|
-  puts "\t#{i+1}\t"+Kamcaptcha::Generator.generate(ARGV[0], opts)
+files = Kamcaptcha::Generator.generate(ARGV[0], opts)
+files.each_with_index do |file, index|
+  puts "\t#{index+1}\t#{file}"
 end
 
 puts "\nRemember to set Kamcaptcha.salt = '#{Kamcaptcha.salt}' in your application\n"
