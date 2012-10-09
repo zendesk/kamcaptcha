@@ -3,9 +3,19 @@ require "digest"
 # You must configure Kamcaptcha with a path to the generated words, and a salt.
 # The salt must be the same you used when generating words.
 module Kamcaptcha
-
   class << self
-    attr_accessor :salt, :path
+    attr_accessor :salt, :path, :prefix
+    attr_writer :template
+
+    def template
+      @template || <<-FORM
+        <div class="kamcaptcha">
+          <label for="kamcaptcha_input">%s</label><input type="text" id="kamcaptcha_input" name="kamcaptcha[input]" />
+          <input type="hidden" name="kamcaptcha[validation]" value="%s" />
+          <img src="%s" />
+        </div>
+      FORM
+    end
   end
 
   def self.random
