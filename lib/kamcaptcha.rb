@@ -4,8 +4,12 @@ require "digest"
 # The salt must be the same you used when generating words.
 module Kamcaptcha
   class << self
-    attr_accessor :salt, :path, :prefix
-    attr_writer :template
+    attr_accessor :salt, :path
+    attr_writer :template, :prefix
+
+    def prefix
+      @prefix || ""
+    end
 
     def template
       @template || <<-FORM
