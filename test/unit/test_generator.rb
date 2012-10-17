@@ -1,7 +1,6 @@
 require File.expand_path("test/test_helper")
 
 describe Kamcaptcha::Generator do
-
   describe Kamcaptcha::Generator::RandomWordGenerator do
     subject { Kamcaptcha::Generator::RandomWordGenerator.new("3-10") }
 

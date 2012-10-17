@@ -5,14 +5,18 @@ module Kamcaptcha
     # Usage: <%= kamcaptcha :label => "Please prove that you're a human" %>
     def kamcaptcha(options = {})
       label = options.fetch(:label, DEFAULT_LABEL)
-      path_prefix = options.fetch(:prefix, Kamcaptcha.prefix)
       template = options.fetch(:template, Kamcaptcha.template)
 
       image = Kamcaptcha.random
-      token = image.split(".").first
-      image = File.join('/', path_prefix, image)
 
-      form = template % [label, token, image]
+      token = image.split(".").first
+      token = Kamcaptcha::Token.generator.call(token) if Kamcaptcha::Token.generator
+
+      image = File.join('/', Kamcaptcha.prefix, image)
+
+      instance_exec(token, &Kamcaptcha::Token.store) if Kamcaptcha::Token.store
+
+      form = template % { :label => label, :token => token, :image => image }
       form = form.html_safe if form.respond_to?(:html_safe)
       form
     end
