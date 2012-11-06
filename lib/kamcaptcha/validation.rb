@@ -5,7 +5,9 @@ module Kamcaptcha
       return false unless params.respond_to?(:key?)
       return false unless params.key?(:kamcaptcha)
 
-      Kamcaptcha.valid?(params[:kamcaptcha][:input], params[:kamcaptcha][:validation])
+      token = instance_exec(&Kamcaptcha::Token.lookup)
+
+      Kamcaptcha::Token.valid?(token, params[:kamcaptcha][:input])
     end
   end
 end
