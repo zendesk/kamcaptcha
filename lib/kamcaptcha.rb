@@ -30,8 +30,8 @@ end
 
 Kamcaptcha.template = <<-END
   <div class="kamcaptcha">
-    <label for="kamcaptcha_input">%{label}</label><input type="text" id="kamcaptcha_input" name="kamcaptcha[input]" />
-    <input type="hidden" name="kamcaptcha[validation]" value="%{token}" />
-    <img src="%{image}" />
+    <label for="kamcaptcha_input"><%= label %></label><input type="text" id="kamcaptcha_input" name="kamcaptcha[input]" />
+    <input type="hidden" name="kamcaptcha[validation]" value="<%= token %>" />
+    <img src="<%= image %>" />
   </div>
 END

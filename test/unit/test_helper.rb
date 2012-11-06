@@ -57,7 +57,7 @@ describe Kamcaptcha::Helper do
       before(:all) { @prefix, Kamcaptcha.prefix = Kamcaptcha.prefix, "omg/123" }
       after(:all) { Kamcaptcha.prefix = @prefix }
 
-      subject { Kamcaptcha.stub(:random, "hello.png") { kamcaptcha(:template => "%{image}") } }
+      subject { Kamcaptcha.stub(:random, "hello.png") { kamcaptcha(:template => "<%= image %>") } }
 
       it "should prefix image path" do
         assert_equal "/omg/123/hello.png", subject
@@ -68,7 +68,7 @@ describe Kamcaptcha::Helper do
       before(:all) { @generator, Kamcaptcha::Token.generator = Kamcaptcha::Token.generator, lambda {|_| "token"}}
       after(:all) { Kamcaptcha::Token.generator = @generator }
 
-      subject { Kamcaptcha.stub(:random, "hello.png") { kamcaptcha(:template => "%{token}") } }
+      subject { Kamcaptcha.stub(:random, "hello.png") { kamcaptcha(:template => "<%= token %>") } }
 
       it "should use the custom generator" do
         assert_equal "token", subject

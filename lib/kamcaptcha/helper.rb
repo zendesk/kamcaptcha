@@ -1,3 +1,5 @@
+require 'erb'
+
 module Kamcaptcha
   module Helper
     DEFAULT_LABEL = "Please type the characters in the image below"
@@ -16,9 +18,12 @@ module Kamcaptcha
 
       instance_exec(token, &Kamcaptcha::Token.store) if Kamcaptcha::Token.store
 
-      form = template % { :label => label, :token => token, :image => image }
+      # Makes sure the ERB template only gets these variables: label, token, image
+      form = ERB.new(template).result(OpenStruct.new(:label => label, :token => token, :image => image).send(:binding))
+
       form = form.html_safe if form.respond_to?(:html_safe)
       form
     end
+
   end
 end
