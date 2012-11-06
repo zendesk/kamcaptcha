@@ -10,7 +10,7 @@ module Kamcaptcha
       image = Kamcaptcha.random
 
       token = image.split(".").first
-      token = Kamcaptcha::Token.generator.call(token) if Kamcaptcha::Token.generator
+      token = instance_exec(token, &Kamcaptcha::Token.generator) if Kamcaptcha::Token.generator
 
       image = File.join('/', Kamcaptcha.prefix, image)
 

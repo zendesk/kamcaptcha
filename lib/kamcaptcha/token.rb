@@ -5,7 +5,7 @@ module Kamcaptcha
 
       def valid?(validation, input)
         input = Kamcaptcha.encrypt(input.to_s.delete(" ").downcase)
-        input = generator.call(input) if generator
+        input = instance_exec(input, &generator) if generator
 
         input == validation
       end
@@ -13,6 +13,7 @@ module Kamcaptcha
   end
 end
 
+# Default form lookup
 Kamcaptcha::Token.lookup = lambda do
   params[:kamcaptcha][:validation]
 end
