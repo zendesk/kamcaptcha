@@ -1,4 +1,4 @@
-Gem::Specification.new "kamcaptcha", "0.1.0" do |s|
+Gem::Specification.new "kamcaptcha", "0.2.0" do |s|
   s.summary     = "A captcha image generator that's a little less retarded"
   s.description = "Helps humankind with simpler captchas"
   s.authors     = [ "Morten Primdahl" ]
