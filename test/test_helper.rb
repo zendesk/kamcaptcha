@@ -7,7 +7,7 @@ require "minitest/autorun"
 Bundler.require
 
 require "RMagick"
-require "debugger" unless ENV["TRAVIS"]
+require "debugger" unless ENV["TRAVIS"] || RUBY_VERSION.start_with?("1.8")
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
