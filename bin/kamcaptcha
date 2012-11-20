@@ -28,7 +28,7 @@ A default run creates a "./tmp" directory and generates 10 random five character
 Full list of options:
 EOS
 
-  opt :salt, "Salt to use, if not specified one will be generated"
+  opt :salt, "Salt to use, if not specified one will be generated", :type => :string
   opt :count, "How many words to generate", :default => 10
   opt :height, "Height of the word image in pixels", :default => 50
   opt :width, "Width of the word image in pixesks", :default => 240
