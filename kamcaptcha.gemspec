@@ -3,7 +3,7 @@ Gem::Specification.new "kamcaptcha", "1.0.0" do |s|
   s.description = "Helps humankind with simpler captchas"
   s.authors     = [ "Morten Primdahl" ]
   s.email       = "primdahl@me.com"
-  s.homepage    = "http://github.com/morten/kamcaptcha"
+  s.homepage    = "http://github.com/zendesk/kamcaptcha"
   s.files       = `git ls-files`.split("\n")
   s.license     = "Apache License Version 2.0"
 
