@@ -50,3 +50,7 @@ return head(:bad_request) unless kamcaptcha_validates?
 ```
 
 You can write your own helper and controller logic easily, take a look at the source.
+
+## License
+
+Released under the Apache License Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
